@@ -1,5 +1,6 @@
 # SRWarp
-(record/demo.gif)
+![demo](src/record/demo.gif)
+
 This repository contains an official implementation of the following CVPR 2021 paper:
 
 Sanghyun Son and Kyoung Mu Lee, "SRWarp: Generalized Image Super-Resolution under Arbitrary Transformation."
@@ -21,7 +22,7 @@ $ cd pysrwarp
 $ make
 ```
 
-We also recommend to use the attached `environment.yaml` file to easily setup the environment.
+We also recommend using the attached `environment.yaml` file to easily set up the environment.
 ```bash
 $ conda env create --file environment.yaml
 $ conda activate srwarp
@@ -43,8 +44,8 @@ Otherwise, download them manually. Please note that those files are ~3x larger t
 ## Demo
 
 Browse to the `src` directory and run `interactive.py` to open an interactive session.
-We note that this requires large amount of GPU memory, especially with the MRDB backbone.
-We will release memory-friendly version soon.
+We note that this requires a large amount of GPU memory, especially with the MRDB backbone.
+We will release a memory-friendly version soon.
 ```bash
 $ cd src
 # With the MDSR backbone
@@ -62,7 +63,7 @@ Type 2 and 3 repeatedly to compare our results with the conventional interpolati
 We are currently reorganizing the code. The training script will be released soon!
 
 ## Reference
-If you find our paper and repository useful in your research, please use the following bibtex form:
+If you find our paper and repository useful in your research, please use the following BibTeX form:
 ```
 @inproceedings{
   title={{SRW}arp: Generalized Image Super-Resolution under Arbitrary Transformation},
