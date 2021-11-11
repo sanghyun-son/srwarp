@@ -61,10 +61,7 @@ class CV2Predictor(_parent_class):
         if self.naive:
             sr = lr_crop
         else:
-            # Apply the SR model first
-            #t_begin = time.time()
             sr = self.model(lr_crop)
-            #self.time_acc += (time.time() - t_begin)
 
         m = transform.compensate_scale(m, 1 / self.scale)
         if self.interpolation == 'bicubic':
@@ -77,13 +74,9 @@ class CV2Predictor(_parent_class):
             flags = 'layer'
         elif self.interpolation == 'adaptive':
             flags = 'adaptive'
-        else:
-            msg = 'Interpolation flags: {} is not supported!'.format(flags)
-            raise ValueError(msg)
 
         fill = -255
         if self.interpolation in ('bicubic', 'area', 'lanczos'):
-            #t_begin = time.time()
             sr_np = sr.squeeze(0).cpu().numpy()
             sr_np = np.transpose(sr_np, (1, 2, 0))
             sr_np = np.ascontiguousarray(sr_np)
@@ -107,12 +100,6 @@ class CV2Predictor(_parent_class):
             )
             mask = (ref != fill).float()
             sr_cv2 = torch.from_numpy(sr_cv2_np).to(sr.device).unsqueeze(0)
-            '''
-            self.time_acc += (time.time() - t_begin)
-            self.count += 1
-            if self.count <= 2:
-                self.time_acc = 0
-            '''
         else:
             adaptive_grid = (flags == 'adaptive')
             sr_cv2 = warp.warp_by_function(
@@ -128,9 +115,4 @@ class CV2Predictor(_parent_class):
         sr_cv2 = image_utils.quantize(sr_cv2)
         sr_cv2 = mask * (sr_cv2 + 1) - 1
         loss = self.loss(sr=sr_cv2, hr=hr, mask=mask)
-        #return loss, {'warp': sr_cv2, 'sr': sr}
-        '''
-        if self.count > 2:
-            print(self.time_acc / (self.count - 2))
-        '''
         return loss, {'sr': sr_cv2, 'mask': 2 * mask - 1}

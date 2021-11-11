@@ -18,16 +18,6 @@ class SRWarpDemo(torch.utils.data.Dataset):
 
         self.gts = sorted(glob.glob(path.join(data_path, '*.png')))
         self.imgs = sorted(glob.glob(path.join(data_path_test, '*.png')))
-        #self.gts = sorted(glob.glob(path.join('example', 'gt_valid', '*.png')))
-        '''
-        self.gts = sorted(glob.glob(path.join(
-            '..',
-            'dataset',
-            'DIV2K',
-            'DIV2K_valid_HR',
-            '*.png',
-        )))
-        '''
         self.ms = sorted(glob.glob(path.join(data_path_test, '*.pth')))
         return
 

@@ -59,8 +59,41 @@ $ python interactive.py --pretrained ../pretrained/srwarp_mrdb-908878d3.ckpt --b
 You can freely drag blue dots around the image for real-time interaction.
 Type 2 and 3 repeatedly to compare our results with the conventional interpolation-based warping algorithm.
 
+
+We also provide some scripts to reproduce several experiments in our paper.
+For baseline methods in Table 3, please prepare SR results from existing methods first.
+Then, use the following scripts:
+```bash
+$ python main.py --dtest srwarp.demo --dpath $1 --data_path_test $2 --trainer srwarp.cv2 --loss loss/srwarp.txt --save srwarp/edsr_x4_cv2 --cv2_interpolation bicubic --cv2_naive --scale 4 --test_only
+
+$1: Path to the DIV2K validation HR images.
+$2: Path to the 100 SR results on DIV2K validation dataset and the corresponding forward transformation matrices (`.pth`).
+```
+
+An example directory structure of `$2`
+|-- 0801.pth
+|-- 0801_x4.png
+|-- 0802.pth
+|-- 0802_x4.png
+`-- ...
+
+## Assets
+
+Please download the DIV2KW datasets from the links below
+- DIV2KW (Validation)
+  - [Input](https://cv.snu.ac.kr/dataset/srwarp/input_valid_v3.tar)
+  - [GT](https://cv.snu.ac.kr/dataset/srwarp/gt_valid.tar)
+
+- DIV2KW (Test)
+  - [Input](https://cv.snu.ac.kr/dataset/srwarp/input_test_v3.tar)
+  - For test ground-truth images, please use [DIV2K_valid_HR](https://data.vision.ee.ethz.ch/cvl/DIV2K/) dataset.
+
+Each dataset contains 100 test inputs and corresponding 100 **forward** transformation matrices (`.pth`).
+
+
 ## Training
 We are currently reorganizing the code. The training script will be released soon!
+
 
 ## Reference
 If you find our paper and repository useful in your research, please use the following BibTeX form:

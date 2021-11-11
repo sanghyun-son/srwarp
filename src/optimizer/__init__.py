@@ -1,6 +1,3 @@
-from optimizer import adabound
-
-import torch
 from torch import optim
 
 def make_optimizer(target, cfg):
@@ -19,11 +16,6 @@ def make_optimizer(target, cfg):
         kwargs['momentum'] = cfg.momentum
     elif cfg.optimizer == 'ADAM':
         optimizer_class = optim.Adam
-        kwargs['betas'] = (cfg.beta1, cfg.beta2)
-        kwargs['eps'] = cfg.epsilon
-    elif cfg.optimizer == 'AdaBound':
-        optimizer_class = adabound.AdaBound
-        kwargs['final_lr'] = cfg.final_lr
         kwargs['betas'] = (cfg.beta1, cfg.beta2)
         kwargs['eps'] = cfg.epsilon
     elif cfg.optimizer == 'RMSprop':

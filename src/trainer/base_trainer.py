@@ -16,7 +16,6 @@ from misc import module_utils
 from misc import gpu_utils
 from misc import downloader
 from misc import timer
-from misc import mask_utils
 
 import torch
 from torch import nn
@@ -149,7 +148,6 @@ class BaseTrainer(object):
         if reset and self.pause_count == 0:
             shutil.rmtree(save_as, ignore_errors=True)
 
-        save_color_bar = False
         os.makedirs(save_as, exist_ok=True)
         for k, v in samples.items():
             normalized = None
@@ -159,9 +157,6 @@ class BaseTrainer(object):
                         normalized = (v + 1) / 2
                     else:
                         normalized = None
-                elif v.dim() == 3 and 'mask' in k:
-                    normalized = mask_utils.code2img(v, ost=True)
-                    save_color_bar = True
 
             if normalized is not None:
                 if count_max > 0:
@@ -174,9 +169,6 @@ class BaseTrainer(object):
                     path.join(save_as, '{}_{}.png'.format(prefix, k)),
                     padding=0,
                 )
-
-        if save_color_bar:
-            mask_utils.color_bar(save_as)
 
         self.pause_count += 1
         if self.pause_count >= count_max:

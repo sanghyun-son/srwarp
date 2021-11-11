@@ -2,6 +2,7 @@ from argparse import ArgumentParser
 
 def add_argument(group: ArgumentParser):
     group.add_argument('--transform_type', type=str, default='fixed')
+    group.add_argument('--patch_max', type=int, default=1024)
     group.add_argument('--no_adaptive_down', action='store_true')
     group.add_argument('--no_adaptive_up', action='store_true')
     group.add_argument('--kernel_size_up', type=int, default=3)
