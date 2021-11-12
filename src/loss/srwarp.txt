@@ -1,0 +1,2 @@
+total = mloss(sr, hr, mask) + $(psnr-func)(sr, hr, mask)
+psnr-func = mpsnr
