@@ -69,13 +69,14 @@ $ python main.py --dtest srwarp.demo --dpath $1 --data_path_test $2 --trainer sr
 $1: Path to the DIV2K validation HR images.
 $2: Path to the 100 SR results on DIV2K validation dataset and the corresponding forward transformation matrices (`.pth`).
 ```
-
+```bash
 An example directory structure of `$2`
 |-- 0801.pth
 |-- 0801_x4.png
 |-- 0802.pth
 |-- 0802_x4.png
 `-- ...
+```
 
 ## Assets
 
